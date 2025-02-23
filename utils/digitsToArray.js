@@ -1,6 +1,6 @@
 import _ from "lodash";
 
-import { BASE_N } from "./constants.js";
+import { BASE_N } from "../constants.js";
 
 export const number2Array = (number) => {
   const temp = _.map(Array(BASE_N), () => 0);
@@ -49,3 +49,13 @@ export const add2Arrays = (arr1, arr2) => {
 
 export const checkNoOfDigits = (arrAsNumber) =>
   _.size(_.dropRightWhile(arrAsNumber, (item) => item === 0));
+
+export const countNoOfDigits = (number) => {
+  let i = number;
+  let n = 0;
+  while (i > 0) {
+    i = Math.floor(i / 10);
+    n += 1;
+  }
+  return n;
+};

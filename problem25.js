@@ -5,7 +5,7 @@ import {
   array2Number,
   checkNoOfDigits,
   add2Arrays,
-} from "./utils.js";
+} from "./utils/digitsToArray.js";
 
 const thousandFibonacci = (n = 2) => {
   let fn = number2Array(2);
