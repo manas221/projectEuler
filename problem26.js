@@ -1,36 +1,48 @@
 import _ from "lodash";
-// use euclid's lemma to get the answer
 
-function getRepeatingBlock(b) {
+function getRepeatingBlockSize(b) {
   // a = bq + r
-  let res = 0;
-  let remainder_repeated = false;
-
-  const remainders = {};
   let a = 1;
-
-  let final_multiple = 1;
-
-  while (!remainder_repeated) {
-    if (a < b) {
-      a *= 10;
-      final_multiple = final_multiple / 10;
+  let remainders = [];
+  let blockSize = 0;
+  while (1) {
+    if (a == 0) {
+      blockSize = -1;
+      console.error("No repeating block found for ", b);
+      break;
     }
 
-    const q = Math.floor(a / b);
-    const r = a % b;
+    if (_.includes(remainders, a)) {
+      break;
+    }
+
+    remainders = [...remainders, a];
+
+    if (a < b) {
+      a *= 10;
+    }
+
+    a = a % b;
+    blockSize += 1;
   }
+
+  return blockSize;
 }
 
 function reciprocalCycles() {
-  let maxBlockSize = 0;
-
-  _.forEach(_.range(1, 1000), (d) => {
-    maxBlock = _.max([maxBlockSize, getRepeatingBlockSize(d)]);
+  const res = {
+    num: 0,
+    blockSize: 0,
+  };
+  _.forEach(_.range(1, 1001), (d) => {
+    const currBlockSize = getRepeatingBlockSize(d);
+    if (currBlockSize >= res.blockSize) {
+      res.num = d;
+      res.blockSize = currBlockSize;
+    }
   });
 
-  console.log(maxBlockSize);
-  return maxBlockSize;
+  console.log("result", res);
 }
 
 reciprocalCycles();
